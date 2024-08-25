@@ -1,0 +1,20 @@
+{
+  "name": "fsd58we-t-node-project",
+  "version": "1.0.0",
+  "description": "Simple APIs to learning http, express servers",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "HTTP",
+    "Express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
+  }
+}
