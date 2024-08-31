@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 
 const studentsRouter = express.Router();
 
+// store all the students here
 const students = [];
 // APIs for Students
 // GET - /students
@@ -27,8 +28,48 @@ studentsRouter.post("/", (req, res) => {
 
 // GET - /students/student-id
 studentsRouter.get("/:id", (req, res) => {
+  console.log(req.params);
   const studentId = req.params.id;
-  res.json(students.find((stu) => stu.id === studentId));
+  const student = students.find((stu) => stu.id === studentId);
+  if (student) {
+    res.json(student);
+  } else {
+    res.status(404).json({ msg: "Student not found" });
+  }
+});
+
+// DELETE a student
+studentsRouter.delete("/", (req, res) => {
+  console.log(req.query);
+  const { id } = req.query;
+  const studentIndex = students.findIndex((stu) => stu.id === id);
+
+  if (studentIndex !== -1) {
+    // delete Logic
+    students.splice(studentIndex, 1);
+    res.json({ msg: "Student Deleted Successfully" });
+  } else {
+    res.status(404).json({ msg: "Student Not Found" });
+  }
+});
+
+// Edit a single student
+studentsRouter.put("/:id", (req, res) => {
+  const updateData = req.body;
+  const { id } = req.params;
+
+  const studentIndex = students.findIndex((stu) => stu.id === id);
+
+  if (studentIndex === -1) {
+    res.status(404).json({ msg: "Student Not Found" });
+  } else {
+    students[studentIndex] = {
+      id,
+      ...updateData,
+    };
+
+    res.json({ msg: "updated student details successfully" });
+  }
 });
 
 export default studentsRouter;

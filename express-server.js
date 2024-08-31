@@ -1,6 +1,8 @@
 import express from "express";
 import studentsRouter from "./routes/students.js";
 import teachersRouter from "./routes/teachers.js";
+import moviesRouter from "./routes/movies.js";
+import theaterRouter from "./routes/theaters.js";
 
 const server = express();
 
@@ -22,6 +24,8 @@ server.post("/", (req, res) => {
 // link the studentRouter with express server
 server.use("/students", studentsRouter);
 server.use("/teachers", teachersRouter);
+server.use("/movies", moviesRouter);
+server.use("/theaters", theaterRouter);
 
 const PORT = 4500;
 
