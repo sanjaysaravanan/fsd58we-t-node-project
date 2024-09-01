@@ -54,7 +54,7 @@ theaterRouter.get("/:id/shows", (req, res) => {
 theaterRouter.patch("/:id/add-show", (req, res) => {
   const { id } = req.params;
 
-  const showDetails = req.body;
+  const showDetails = req.body; // movieId, timing
 
   const theaterIndex = theaters.findIndex((t) => t.id === id);
 
