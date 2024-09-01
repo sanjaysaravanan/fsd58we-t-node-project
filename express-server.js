@@ -48,7 +48,7 @@ const PORT = 4500;
   }); */
 
 // Method Top Level Module await
-await connectToDb(); // this line will wait and connect to DB then next lines will execute
+await connectToDb(); // this line will wait and connect to DB then next lines will executed
 await connectViaMongoose();
 
 server.listen(PORT, () => {
