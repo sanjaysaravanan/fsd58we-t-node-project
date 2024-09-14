@@ -31,12 +31,12 @@ usersRouter.post("/", async (req, res) => {
   if (user) {
     res.status(409).json({ msg: "User Already Exists" });
   } else {
+    const userObj = new userModel({
+      ...userDetails,
+    });
+    await userObj.validate();
     bcrypt.hash(userDetails.password, 10, async (err, hash) => {
-      const userObj = new userModel({
-        ...userDetails,
-      });
       try {
-        await userObj.validate();
         userDetails.password = hash;
         await usersCollection.insertOne({
           ...userDetails,
