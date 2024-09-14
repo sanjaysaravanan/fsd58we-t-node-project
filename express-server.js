@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import studentsRouter from "./routes/students.js";
 import teachersRouter from "./routes/teachers.js";
 import moviesRouter from "./routes/movies.js";
@@ -12,6 +13,7 @@ const server = express();
 
 // Middleware used by server to read the body of a request
 server.use(express.json());
+server.use(cors());
 
 // GET
 server.get("/", (req, res) => {

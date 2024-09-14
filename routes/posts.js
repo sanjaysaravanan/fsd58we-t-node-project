@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 // import model for the posts
 import { postModel } from "../db-utils/models.js";
 import { v4 } from "uuid";
+//import { insertPost } from "./posts-logic.js";
 
 const postsRouter = express.Router();
 
@@ -38,6 +39,10 @@ postsRouter.post("/", async (req, res) => {
         .json({ msg: "Please Check the fields for Post Creation" });
     } else res.status(500).json({ msg: "Internal Server Error" });
   }
+
+  /* const result = await insertPost(postDetail);
+
+  res.status(result.code).json({ ...result }); */
 });
 
 export default postsRouter;

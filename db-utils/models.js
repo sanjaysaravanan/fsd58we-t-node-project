@@ -31,4 +31,14 @@ const postSchema = new Schema({
 export const postModel = new model("post", postSchema, "posts");
 
 // No/Empty Scheme --> No validation
-export const userModel = new model("user", new Schema(), "users");
+
+const userScheme = new Schema({
+  password: {
+    type: "string",
+    minLength: [6, "Should be 6 characters in length"],
+    maxLength: 12,
+    required: true,
+  },
+});
+
+export const userModel = new model("user", userScheme, "users");

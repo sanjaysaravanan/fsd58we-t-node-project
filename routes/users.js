@@ -1,8 +1,11 @@
 // APIs related to Users
 import express from "express";
+import bcrypt from "bcrypt";
 
 import { db } from "../db-utils/db-connection.js";
 import { v4 } from "uuid";
+import { userModel } from "../db-utils/models.js";
+import mongoose from "mongoose";
 
 const usersRouter = express.Router();
 
@@ -28,12 +31,28 @@ usersRouter.post("/", async (req, res) => {
   if (user) {
     res.status(409).json({ msg: "User Already Exists" });
   } else {
-    await usersCollection.insertOne({
-      ...userDetails,
-      id: v4(),
+    bcrypt.hash(userDetails.password, 10, async (err, hash) => {
+      const userObj = new userModel({
+        ...userDetails,
+      });
+      try {
+        await userObj.validate();
+        userDetails.password = hash;
+        await usersCollection.insertOne({
+          ...userDetails,
+          id: v4(),
+          isVerified: false,
+        });
+        res.json({ msg: "User created Successfully" });
+      } catch (e) {
+        if (e instanceof mongoose.Error.ValidationError) {
+          res.status(400).json({ msg: e.message });
+        } else {
+          res.status(500).json({ msg: "Internal Server Error" });
+        }
+        console.log(e);
+      }
     });
-
-    res.json({ msg: "User created Successfully" });
   }
 });
 
