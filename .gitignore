@@ -2,3 +2,5 @@
 /file-creation-server.js
 /fs-inbuilt.js
 /node_modules
+
+.env

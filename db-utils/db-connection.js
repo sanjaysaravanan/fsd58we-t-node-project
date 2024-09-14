@@ -1,16 +1,17 @@
 import mongodb from "mongodb";
+import dotenv from "dotenv";
 
-// local DB
-const localDbUrl = "127.0.0.1:27017"; // 'localhost:27017'
+dotenv.config();
+
 const dbName = "fsd58we-tamil-test";
 
-// cloud DB
-const cloudUrl =
-  "mongodb+srv://sanjaysaravanan1997:sopupn14jDK7EmQt@cluster0.nwegh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-// Local DB Connection
-// export const client = new mongodb.MongoClient(`mongodb://${localDbUrl}`);
+// local DB
+// const url = "mongodb://localhost:27017"; // 'localhost:27017'
 
-export const client = new mongodb.MongoClient(cloudUrl);
+// cloud DB
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}`;
+
+export const client = new mongodb.MongoClient(url);
 
 // all the queries will written on top of this DB
 export const db = client.db(dbName);

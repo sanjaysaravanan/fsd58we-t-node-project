@@ -22,10 +22,10 @@ const postSchema = new Schema({
     type: "number",
     required: true,
   },
-  students: {
+  /* students: {
     type: Array,
     default: [],
-  },
+  }, */
 });
 
 export const postModel = new model("post", postSchema, "posts");
