@@ -15,6 +15,13 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 
+const middleWareFn = (req, res, next) => {
+  console.log(new Date().toISOString(), req.url, req.method);
+  next();
+};
+
+server.use(middleWareFn);
+
 // GET
 server.get("/", (req, res) => {
   res.json({ msg: "Hello World" });
